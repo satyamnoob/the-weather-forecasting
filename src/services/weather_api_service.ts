@@ -1,5 +1,48 @@
 import keys from "../utils/keys";
 
+export interface TodayForecastResponse {
+  name: string;
+  sys: {
+    country: string;
+  };
+  dt: number;
+  main: {
+    temp: number;
+    feels_like: number;
+    humidity: number;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
+  wind: {
+    speed: number;
+  };
+  clouds: {
+    all: number;
+  };
+}
+
+export interface WeeklyForecastResponse {
+  list: {
+    dt: number;
+    main: {
+      temp: number;
+      humidity: number;
+    };
+    weather: {
+      icon: string;
+      description: string;
+    }[];
+    clouds: {
+      all: number;
+    };
+    wind: {
+      speed: number;
+    };
+  }[];
+}
+
 class WeatherApiService {
   baseUrl: string;
   apiKey: string;
@@ -9,9 +52,9 @@ class WeatherApiService {
     this.apiKey = keys.WEATHER_API_KEY;
   }
 
-  async fetchWeatherData(lat: string, lon: string) {
+  async fetchWeatherData(lat: string, lon: string): Promise<[TodayForecastResponse, WeeklyForecastResponse]>  {
     try {
-      const [currentWeatherPromise, forecastPromise] = await Promise.all([
+      const [currentWeatherResponse, forecastResponse] = await Promise.all([
         fetch(
           `${this.baseUrl}/weather?lat=${lat}&lon=${lon}&appid=${this.apiKey}&units=metric`
         ),
@@ -20,12 +63,20 @@ class WeatherApiService {
         ),
       ]);
 
-      const currentWeatherData = await currentWeatherPromise.json();
-      const forecastData = await forecastPromise.json();
+      if (!currentWeatherResponse.ok) {
+        throw new Error(`Failed to fetch current weather: ${currentWeatherResponse.statusText}`);
+      }
+      if (!forecastResponse.ok) {
+        throw new Error(`Failed to fetch forecast: ${forecastResponse.statusText}`);
+      }
+
+      const currentWeatherData: TodayForecastResponse = await currentWeatherResponse.json();
+      const forecastData: WeeklyForecastResponse = await forecastResponse.json();
 
       return [currentWeatherData, forecastData];
     } catch (error) {
-    //   console.log("Error", error);
+      console.error("Error fetching weather data:", error);
+      throw error;
     }
   }
 }

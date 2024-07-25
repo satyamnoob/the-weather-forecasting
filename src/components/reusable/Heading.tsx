@@ -1,6 +1,12 @@
 import { Typography } from "@mui/material"
+import React from "react";
 
-function Heading({ title, mb = '1rem' }) {
+interface HeadingProps {
+  title: string;
+  mb?: string;
+}
+
+const Heading: React.FC<HeadingProps> = ({ title, mb = '1rem' }) => {
   return (
     <Typography
       variant="h5"

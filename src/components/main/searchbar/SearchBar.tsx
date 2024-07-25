@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { AsyncPaginate } from "react-select-async-paginate";
+import { SingleValue } from "react-select";
 import geoApiService, { CityData } from "../../../services/geo_api_service";
 
 export interface Option {
@@ -7,7 +8,11 @@ export interface Option {
   value: string;
 }
 
-function SearchBar({ onSearch }) {
+interface SearchBarProps {
+  onSearch: (param1: Option) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchValue, setSearchValue] = useState<Option | null>(null);
 
   const loadOptions = async (inputValue: string) => {
@@ -26,9 +31,11 @@ function SearchBar({ onSearch }) {
     };
   };
 
-  const onChangeHandler = (option: Option) => {
-    setSearchValue(option);
-    onSearch(option);
+  const onChangeHandler = (newValue: SingleValue<Option>) => {
+    setSearchValue(newValue);
+    if (newValue) {
+      onSearch(newValue);
+    }
   };
 
   return (

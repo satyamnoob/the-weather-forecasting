@@ -1,6 +1,10 @@
 # The Weather Forecasting
 
-The Weather Forecasting is a sleek and modern React application built with Vite, TypeScript, and Material-UI. It provides detailed current weather and weekly forecasts using the OpenWeatherMap and GeoDB APIs.
+![Screenshot](./public/Screenshot.png "The Weather Forecasting")
+
+[The Weather Forecasting](https://the-weather-forecasting-react.netlify.app/) is a sleek and modern React application built with Vite, TypeScript, and Material-UI. It provides detailed current weather and weekly forecasts using the OpenWeatherMap and GeoDB APIs.
+
+Live Demo: [The Weather Forecasting](https://the-weather-forecasting-react.netlify.app/)
 
 ## Features
 

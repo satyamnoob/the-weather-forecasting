@@ -39,7 +39,19 @@ interface DailyForecastAccumulator {
   readings: number;
 }
 
-export const todayWeatherJsonToObject = (today, weekly) => {
+interface WeatherItem {
+  dt: number;
+  main: {
+    temp: number;
+  };
+  weather: {
+    icon: string;
+    description: string;
+  }[];
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const todayWeatherJsonToObject = (today: any, weekly: any) => {
   const completeTodayWeatherData: CompleteTodayWeatherData = {
     place: `${today.name}, ${today.sys.country}`,
     date: epochToDate(Number(today.dt)),
@@ -65,7 +77,7 @@ const epochToDate = (epoch: number) => {
   return `Today ${date.getDate()} ${MONTHS[date.getMonth()].substring(0, 4)}`;
 };
 
-function extractTodaysForecast(list: [], description: string) {
+function extractTodaysForecast(list: WeatherItem[], description: string) {
   const today = new Date();
   const todayString = today.toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
 
@@ -87,6 +99,7 @@ function extractTodaysForecast(list: [], description: string) {
     });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const weeklyWeatherJsonToObject = (weekly: any): WeeklyForecast[] => {
   if (!weekly || Object.keys(weekly).length === 0 || weekly.cod === "404") {
     return [];
