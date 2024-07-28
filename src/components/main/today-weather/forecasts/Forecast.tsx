@@ -34,7 +34,7 @@ const Forecast: React.FC<ForecastProp> = ({ todaysAvailaibleForecasts }) => {
           >
             {todaysAvailaibleForecasts.length === 1
               ? "1 available forecast"
-              : `${todaysAvailaibleForecasts.length} available forecasts`}
+              : `${todaysAvailaibleForecasts.length - 1} available forecasts`}
           </Typography>
         </Grid>
         <Grid
