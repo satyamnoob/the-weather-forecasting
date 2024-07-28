@@ -42,18 +42,18 @@ const WeeklyForecastComponent: React.FC<WeeklyForecastComponentProps> = ({ weekl
           }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={4}>
               <DayWeatherDetails
                 weekday={item.weekday}
                 icon={getWeatherIcon(item.description)}
                 description={item.description}
               />
             </Grid>
-            <Grid item xs={6} sm={4}>
+            <Grid item xs={4}>
               <WeeklyForecastItem type="temperature" value={item.temperature} />
               <WeeklyForecastItem type="clouds" value={item.cloud} />
             </Grid>
-            <Grid item xs={6} sm={4}>
+            <Grid item xs={4}>
               <WeeklyForecastItem type="wind" value={item.wind} />
               <WeeklyForecastItem type="humidity" value={item.humidity} />
             </Grid>

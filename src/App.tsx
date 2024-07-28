@@ -145,11 +145,14 @@ function App() {
         width: "100%",
         height: "100%",
         margin: "0 auto",
-        padding: "1rem 3rem",
+        padding: {
+          xs: "1rem 0",
+          sm: "1rem 3rem",
+        },
         marginBottom: "1rem",
         borderRadius: {
           xs: "none",
-          sm: "0 0 1rem 1rem",
+          sm: "1rem",
         },
         boxShadow: {
           xs: "none",

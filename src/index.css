@@ -13,3 +13,9 @@ body {
   min-height: 100vh;
   background: linear-gradient(60deg, #000428 0%, #004e92);
 }
+
+@media (width <= 600px) {
+  body {
+    padding: 0;
+  }
+}
